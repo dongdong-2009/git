@@ -1,0 +1,2 @@
+1.这两个文件拷贝到/etc/目录下
+2.qemu启动时执行qemu-ifdown脚本，qemu退出时执行qemu-ifup脚本
