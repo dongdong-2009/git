@@ -1,0 +1,32 @@
+#! /bin/bash
+
+#基本变量赋值
+
+
+#编译之前先clean一下
+if [ "$2" == "clean" ]; then
+	make distclean ARCH=$ARCH	#这里也要加上ARCH=arm
+	rm -rf $DEST_PATH/Image
+	rm -rf $DEST_PATH/uImage
+	rm -rf $DEST_PATH/zImage
+	exit 0
+fi
+
+if [ "$1" == "qemu" ]; then
+	# 生成默认配置文件，注意，4.0的内核时不需要接ARCH=arm的
+	#make vexpress_defconfig ARCH=$ARCH
+
+	# 使用备份的配置文件
+	#cp $TOPDIR/configs/linux-"$KERN_VER"_config .config 	#注意这里要使用双引号
+	cp $TOPDIR/configs/qemu/kernel_config .config
+fi
+
+#编译内核 生成uImage的时候，一定要加上LOADADDR，否则会出错
+#为什么在qemu仿真时，0x60004000~0x60008000之间的内存会被替换，
+#所以下面的地址不能像网上上说的那样指定0x60003000，而应该指定在0x60008000之后
+make -j4 ARCH=$ARCH CROSS_COMPILE=$CROSS uImage LOADADDR=0x60008000
+
+#拷贝镜像文件
+cp arch/arm/boot/Image $DEST_PATH
+cp arch/arm/boot/uImage $DEST_PATH
+cp arch/arm/boot/zImage $DEST_PATH

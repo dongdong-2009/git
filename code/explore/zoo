@@ -1,0 +1,135 @@
+#! /bin/bash
+
+#需要传递给被调用脚本的变量
+TOPDIR=`pwd`
+#KERN_VER=3.10.104		#选择要实验的内核版本
+ARCH=arm
+CROSS=arm-linux-gnueabi-
+DEST_PATH=$TOPDIR/zoos
+#export KERN_VER
+export TOPDIR
+export ARCH
+export CROSS
+export DEST_PATH
+
+
+#基础函数，大小写转换
+str_to_upper(){
+	echo $1 | tr '[a - z]' '[A - Z]'
+}
+
+str_to_lower(){
+	echo $1 | tr '[A - Z]' '[a - z]'
+}
+
+
+#帮助信息
+usage(){
+	echo "*******************************************************"
+	echo "$0 [plat] [target] [object]"
+	echo " "
+	echo -e "\tplat   : qemu/tq2440 \t\t default qemu"
+	echo -e "\ttarget : uboot/kernel/rootfs \t default all"
+	echo -e "\tobject : dist/clean \t\t default dist"
+	echo " "
+	echo "*******************************************************"
+}
+
+PLATFORM=qemu
+TARGET=all
+OBJECT=dist
+BUILD=Building
+
+
+#参数解析函数
+parse_param(){
+	str=$(str_to_lower $1)		#将输入的参数转化为小写
+	if [ "$str" == "qemu" ] || [ "$str" == "tq2440" ] ; then									#plat解析
+		PLATFORM=$str
+	elif [ "$str" == "uboot" ] || [ "$str" == "kernel" ] || [ "$str" == "rootfs" ] ; then		#一次只能有一个target
+		TARGET=$str
+	elif [ "$str" == "dist" ] ; then
+		OBJECT=$str
+	elif [ "$str" == "clean" ] ; then
+		OBJECT=$str
+		BUILD=Clean
+		echo 999
+	else
+		usage
+		exit 1
+	fi
+}
+
+#解析参数
+if [ $# -eq 0 ]; then
+	echo "Default: $0 qemu all dist"
+elif [ $# -eq 1 ]; then
+	parse_param $1
+elif [ $# -eq 2 ]; then
+	parse_param $1
+	parse_param $2
+elif [ $# -eq 3 ]; then
+	parse_param $1
+	parse_param $2
+	parse_param $3
+else
+	usage
+	exit 1
+fi
+
+
+#创建zoos目录
+if [ ! -d $DEST_PATH ]; then
+	mkdir -p $DEST_PATH
+fi
+
+
+#编译uboot
+#SUBDIRS="uboot kernel buildroot"
+SUBDIRS="uboot kernel"
+
+if [ $# -gt 0 ]; then						#只有在向脚本传递的参数的个数大于0的时候，才进行下面的解析
+	for item in $SUBDIRS ; do
+		if [ "$TARGET" == "rootfs" ]; then	#当编译rootfs的时候，因为名称不一样，故需要特殊处理
+			SUBDIRS="buildroot"
+		fi
+		if [ "$TARGET" == "$item" ]; then
+			SUBDIRS=$1
+			break;
+		fi
+	done
+fi
+
+for item in $SUBDIRS; do														#实现了如果不接参数就编译全部的功能
+	if [ -d $item ] ; then
+#		if [ $item == "kernel" ] ; then
+#			if [ ! -e $TOPDIR/kernel/linux ] ;	then							#只有在这个软连接不存在的时候才会新建软连接
+#				ln -s $TOPDIR/kernel/linux-$KERN_VER $TOPDIR/kernel/linux		#建立内核软连接
+#			fi
+#			pushd $item/linux > /dev/null										#进入/kernel/linux目录，并执行./zoo脚本
+#			if [ $? -eq 0 ] && [ -e zoo ] ; then								#上一步命令执行成功，且存在zoo文件
+#				./zoo $OBJECT
+#			fi
+#			popd > /dev/null
+#			if [ "$OBJECT" == "clean" ]; then 									#最后还要删掉内核软连接
+#				rm -rf $TOPDIR/kernel/linux
+#			fi
+#		else
+			echo -e "\033[47;30m$BUILD $item ...........\033[0m"
+			pushd $item > /dev/null												#这里如果用cd的话，会导致在uboot目录下退不出来
+			if [ $? -eq 0 ] && [ -e zoo ] ; then								#上一步命令执行成功，且存在zoo文件
+				./zoo $PLATFORM $OBJECT
+			fi
+			popd > /dev/null
+#		fi
+	fi
+done
+
+#删除zoos文件夹
+if [ $# -eq 1 ] && [ "$OBJECT" == "clean" ]; then
+	rm -rf $DEST_PATH
+fi
+	
+exit 0
+
+

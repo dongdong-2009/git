@@ -1,0 +1,28 @@
+#! /bin/bash
+
+#做相应的清除工作
+if [ "$2" == "clean" ]; then
+	make distclean ARCH=$ARCH	#这里也要加上ARCH=arm
+	rm -rf $DEST_PATH/u-boot
+	rm -rf $DEST_PATH/u-boot.bin
+	exit 0
+fi
+
+if [ "$1" == "qemu" ]; then
+	#默认配置文件
+	#make vexpress_ca9x4_defconfig
+
+	# 使用备份的配置文件
+	cp $TOPDIR/configs/qemu/uboot_config .config 
+
+	#编译uboot
+	make -j4 ARCH=$ARCH CROSS_COMPILE=$CROSS
+fi
+
+
+#编译结束后，拷贝成果物
+cp u-boot $DEST_PATH
+cp u-boot.bin $DEST_PATH
+
+
+
