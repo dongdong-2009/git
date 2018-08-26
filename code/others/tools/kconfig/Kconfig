@@ -1,0 +1,85 @@
+mainmenu "This is mainmenu, it is only a title"
+
+config TEST_STR
+	string "this is a string"
+	default "Hello"
+	help
+		please input a string.
+	  
+config SELECT_OPT
+	bool "select to show something"
+	default n
+	help
+		select or not.
+	  
+config TEST_NUM
+	int "this is a int number, show only when SELECT_OPT is TRUE"
+	range 0 400
+	default 20
+	depends on SELECT_OPT
+	help
+		please input a number.
+		
+config TEST_SELECT
+	bool "if selected, the next two will select automatic"
+	default n
+	select AUTO_SELECT1
+	select AUTO_SELECT2
+		
+config AUTO_SELECT1
+	tristate "auto_select1"
+	default n
+
+config AUTO_SELECT2
+	bool "auto_select2"
+	default n
+		
+comment "I am just a separator!"
+
+config SHOW_MEMU
+	bool "select me to show menu"
+	default n
+	help
+		select or not.
+		
+menu "I am menu, pless hit Enter"
+	depends on SHOW_MEMU
+	
+config MENU_NUM
+	int "this is a int number in the menu"
+	range 0 400
+	default 20
+		
+choice
+	prompt "I am choicd option, pless hit Enter"
+	optional
+	default CHOICE_NUM2
+config CHOICE_NUM1
+	bool "choice_num1"
+		
+config CHOICE_NUM2
+	bool "choice_num2"
+		
+config CHOICE_NUM3
+	tristate "choice_num3"
+endchoice		
+		
+endmenu
+
+menuconfig TEST_MENUCONFIG
+	bool "I am menuconfig, pless hit Enter" 
+	depends on SHOW_MEMU
+if TEST_MENUCONFIG
+
+config MENUCONFIG_NUM
+	int "I'm depends on meuconfig, can you see me?"
+	range 0 400
+	default 250
+	help
+		please input a number.	
+endif
+
+
+
+
+
