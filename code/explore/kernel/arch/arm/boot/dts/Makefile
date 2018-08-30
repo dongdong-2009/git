@@ -885,10 +885,11 @@ dtb-$(CONFIG_ARCH_VERSATILE) += \
 	versatile-ab.dtb \
 	versatile-pb.dtb
 dtb-$(CONFIG_ARCH_VEXPRESS) += \
-	vexpress-v2p-ca5s.dtb \
-	vexpress-v2p-ca9.dtb \
-	vexpress-v2p-ca15-tc1.dtb \
-	vexpress-v2p-ca15_a7.dtb
+	vexpress-v2p-ca9.dtb
+#	vexpress-v2p-ca5s.dtb \
+#	vexpress-v2p-ca9.dtb \
+#	vexpress-v2p-ca15-tc1.dtb \		# uImage后面只能跟一个设备树文件
+#	vexpress-v2p-ca15_a7.dtb
 dtb-$(CONFIG_ARCH_VIRT) += \
 	xenvm-4.2.dtb
 dtb-$(CONFIG_ARCH_VT8500) += \

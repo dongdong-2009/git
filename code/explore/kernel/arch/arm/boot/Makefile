@@ -17,6 +17,8 @@ ifneq ($(MACHINE),)
 include $(MACHINE)/Makefile.boot
 endif
 
+include $(srctree)/arch/arm/boot/dts/Makefile
+
 # Note: the following conditions must always be true:
 #   ZRELADDR == virt_to_phys(PAGE_OFFSET + TEXT_OFFSET)
 #   PARAMS_PHYS must be within 4MB of ZRELADDR
@@ -25,9 +27,12 @@ ZRELADDR    := $(zreladdr-y)
 PARAMS_PHYS := $(params_phys-y)
 INITRD_PHYS := $(initrd_phys-y)
 
+DTB_OBJS ?= $(dtb-y)
+DTB_OBJS_FULL := $(addprefix $(obj)/dts/, $(DTB_OBJS))
+
 export ZRELADDR INITRD_PHYS PARAMS_PHYS
 
-targets := Image zImage xipImage bootpImage uImage
+targets := Image zImage zImage-dtb xipImage bootpImage uImage
 
 ifeq ($(CONFIG_XIP_KERNEL),y)
 
@@ -54,7 +59,11 @@ $(obj)/compressed/vmlinux: $(obj)/Image FORCE
 
 $(obj)/zImage:	$(obj)/compressed/vmlinux FORCE
 	$(call if_changed,objcopy)
-
+	
+$(obj)/zImage-dtb:	$(obj)/zImage $(DTB_OBJS_FULL) FORCE
+	@cat $(obj)/zImage $(DTB_OBJS_FULL) > $@
+	@$(kecho) '  Kernel: $@ is ready'
+	
 endif
 
 ifneq ($(LOADADDR),)
@@ -75,7 +84,7 @@ if [ $(words $(UIMAGE_LOADADDR)) -ne 1 ]; then \
 	false; \
 fi
 
-$(obj)/uImage:	$(obj)/zImage FORCE
+$(obj)/uImage:	$(obj)/zImage-dtb FORCE
 	@$(check_for_multiple_loadaddr)
 	$(call if_changed,uimage)
 
