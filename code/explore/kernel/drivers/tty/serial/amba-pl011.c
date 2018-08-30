@@ -2339,7 +2339,7 @@ static void pl011_putc(struct uart_port *port, int c)
 	while (readl(port->membase + UART01x_FR) & UART01x_FR_BUSY)
 		cpu_relax();
 }
-
+//earlycon只调用串口的写函数，内核不需要初始化，earlycon所使用的串口的初始化工作在uboot中完成
 static void pl011_early_write(struct console *con, const char *s, unsigned n)
 {
 	struct earlycon_device *dev = con->data;
@@ -2356,7 +2356,7 @@ static int __init pl011_early_console_setup(struct earlycon_device *device,
 	device->con->write = pl011_early_write;
 	return 0;
 }
-OF_EARLYCON_DECLARE(pl011, "arm,pl011", pl011_early_console_setup);
+OF_EARLYCON_DECLARE(pl011, "arm,pl011", pl011_early_console_setup);		//earlycon需要用这个宏声明一下，并实现相应的函数
 
 #else
 #define AMBA_CONSOLE	NULL

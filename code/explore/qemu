@@ -33,7 +33,7 @@ elif [ "$1" == "kernel" ]; then
 	else	#单独验证内核通过-append传递参数，uboot中通过bootargs传递参数
 		#qemu-system-arm -M vexpress-a9 -m 512M -kernel $DEST_PATH/zImage -nographic -append "root=/dev/mmcblk0 console=ttyAMA0" -sd $DEST_PATH/rootfs.ext2
 		#qemu-system-arm -M vexpress-a9 -m 512M -kernel $DEST_PATH/zImage -nographic -append "root=/dev/mmcblk0 console=ttyAMA0"
-		qemu-system-arm -M vexpress-a9 -m 512M -kernel $DEST_PATH/zImage -nographic -append "root=/dev/mmcblk0 console=ttyAMA0 rw init=/linuxrc"
+		qemu-system-arm -M vexpress-a9 -m 512M -kernel $DEST_PATH/zImage -dtb $DEST_PATH/vexpress-v2p-ca9.dtb -nographic -append "root=/dev/mmcblk0 console=ttyAMA0 rw init=/linuxrc"
 	fi
 elif [ "$1" == "all" ]; then
 	if [ ! -e "$DEST_PATH/u-boot" ]; then
