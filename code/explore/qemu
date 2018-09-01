@@ -2,13 +2,13 @@
 
 PWD=`pwd`
 DEST_PATH=zoos
-
+KERN_OUT=kernel/arch/arm/boot
 #帮助信息
 usage(){
 	echo "*******************************************************"
 	echo -e "  $0 [target]"
 	echo -e " "
-	echo -e "\ttarget : uboot/kernel/all \t default uboot"
+	echo -e "\ttarget : uboot/kernel/all/eclipse \t default uboot"
 	echo -e " "
 	echo "*******************************************************"
 }
@@ -46,6 +46,13 @@ elif [ "$1" == "all" ]; then
 		qemu-system-arm -M vexpress-a9 -m 512M -kernel $DEST_PATH/u-boot -nographic -append "root=/dev/mmcblk0  console=ttyS0" -sd $DEST_PATH/rootfs.ext2
 		#qemu-system-arm -M vexpress-a9 -m 256M -nographic -kernel $DEST_PATH/u-boot -net nic,vlan=0 -net tap,vlan=0,ifname=tap0 -sd $DEST_PATH/rootfs.ext2
 	fi
+elif [ "$1" == "eclipse" ]; then
+	if [ ! -e "$DEST_PATH/zImage" ]; then
+		echo "ERROR: please run \"./zoo kernel\" first"
+	else
+		#qemu-system-arm -M vexpress-a9 -m 256M -nographic -kernel arch/arm/boot/zImage -append "rdinit=/linuxrc console=ttyAMA0" -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb  -gdb tcp::1236 -S
+		qemu-system-arm -M vexpress-a9 -m 256M -nographic -kernel $KERN_OUT/zImage -append "rdinit=/linuxrc console=ttyAMA0" -dtb $KERN_OUT/dts/vexpress-v2p-ca9.dtb -S -s
+	fi	
 fi
 
 #单独测试busybox
