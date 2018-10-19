@@ -1,0 +1,26 @@
+#! /bin/bash
+
+
+#做相应的清除工作
+if [ "$1" == "clean" ]; then
+	make distclean
+	rm -rf $DEST_PATH/rootfs.ext*
+	exit 0
+fi
+
+
+#默认配置文件
+#make qemu_arm_vexpress_defconfig 
+
+# 使用备份的配置文件
+cp $TOPDIR/configs/buildroot_config .config 
+
+#编译rootfs
+make -j4
+
+#编译结束后，拷贝成果物
+cp output/images/rootfs.ext* $DEST_PATH
+
+
+
+

@@ -25,7 +25,11 @@ if [ "$1" == "uboot" ]; then
 	if [ ! -e "$DEST_PATH/u-boot" ]; then
 		echo "ERROR: please run \"./zoo uboot\" first"
 	else
-		qemu-system-arm -M vexpress-a9 -m 256M -nographic -kernel $DEST_PATH/u-boot -net nic,vlan=0 -net tap,vlan=0,ifname=tap0
+		#dd if=/dev/zero of=$DEST_PATH/flash0.img bs=1M count=64
+		#dd if=$DEST_PATH/u-boot.bin of=$DEST_PATH/flash0.img bs=256k conv=notrunc
+		#dd if=/dev/zero of=$DEST_PATH/flash1.img bs=1M count=64	
+		#qemu-system-arm -M vexpress-a9 -m 256M -nographic -kernel $DEST_PATH/u-boot -net nic,vlan=0 -net tap,vlan=0,ifname=tap0
+		qemu-system-arm -M vexpress-a9 -m 256M -nographic -kernel $DEST_PATH/u-boot -pflash $DEST_PATH/flash0.img -pflash $DEST_PATH/flash1.img -net nic,vlan=0 -net tap,vlan=0,ifname=tap0 -sd $DEST_PATH/rootfs.ext2
 	fi
 elif [ "$1" == "kernel" ]; then
 	if [ ! -e "$DEST_PATH/zImage" ]; then
@@ -57,3 +61,4 @@ fi
 
 #单独测试busybox
 #qemu-system-arm -M vexpress-a9 -m 512M -kernel $DEST_PATH/zImage -nographic -append "root=/dev/mmcblk0  console=ttyAMA0" -sd a9rootfs.ext3
+#flashimg -s 60M -t nand -f nand.bin -p mypart -w boot,u-boot.bin -z 512

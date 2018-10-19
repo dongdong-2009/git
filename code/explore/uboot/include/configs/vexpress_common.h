@@ -261,7 +261,7 @@
 
 /* 255 0x40000 sectors + first or last sector may have 4 erase regions = 259 */
 #define CONFIG_SYS_MAX_FLASH_SECT	259		/* Max sectors */
-#define FLASH_MAX_SECTOR_SIZE		0x00040000	/* 256 KB sectors */
+#define FLASH_MAX_SECTOR_SIZE		0x00080000	/* 256 KB sectors 修复无法将环境变量写入到Flash镜像的缺陷 */
 
 /* Room required on the stack for the environment data */
 #define CONFIG_ENV_SIZE			FLASH_MAX_SECTOR_SIZE

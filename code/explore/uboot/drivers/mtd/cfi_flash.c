@@ -1375,7 +1375,8 @@ int write_buff (flash_info_t * info, uchar * src, ulong addr, ulong cnt)
 		}
 
 		/* write buffer until next buffered_size aligned boundary */
-		i = buffered_size - (wp % buffered_size);
+		//i = buffered_size - (wp % buffered_size);
+		i = 2048;  //修复将缓解变量写入Flash镜像时，数据写入不全的缺陷
 		if (i > cnt)
 			i = cnt;
 		if ((rc = flash_write_cfibuffer (info, wp, src, i)) != ERR_OK)
