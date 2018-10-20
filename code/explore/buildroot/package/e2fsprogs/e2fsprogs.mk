@@ -4,9 +4,15 @@
 #
 ################################################################################
 
-E2FSPROGS_VERSION = 1.43.9
-E2FSPROGS_SOURCE = e2fsprogs-$(E2FSPROGS_VERSION).tar.xz
-E2FSPROGS_SITE = $(BR2_KERNEL_MIRROR)/linux/kernel/people/tytso/e2fsprogs/v$(E2FSPROGS_VERSION)
+#自定义从svn下载
+E2FSPROGS_VERSION = head
+E2FSPROGS_SOURCE = e2fsprogs-1.43.9.tar.xz
+E2FSPROGS_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(E2FSPROGS_SOURCE)
+E2FSPROGS_SITE_METHOD = svn
+
+#E2FSPROGS_VERSION = 1.43.9
+#E2FSPROGS_SOURCE = e2fsprogs-$(E2FSPROGS_VERSION).tar.xz
+#E2FSPROGS_SITE = $(BR2_KERNEL_MIRROR)/linux/kernel/people/tytso/e2fsprogs/v$(E2FSPROGS_VERSION)
 E2FSPROGS_LICENSE = GPL-2.0, MIT-like with advertising clause (libss and libet)
 E2FSPROGS_LICENSE_FILES = NOTICE lib/ss/mit-sipb-copyright.h lib/et/internal.h
 E2FSPROGS_INSTALL_STAGING = YES

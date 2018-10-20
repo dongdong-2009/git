@@ -4,9 +4,15 @@
 #
 ################################################################################
 
-GMP_VERSION = 6.1.2
-GMP_SITE = $(BR2_GNU_MIRROR)/gmp
-GMP_SOURCE = gmp-$(GMP_VERSION).tar.xz
+#自定义从svn下载 固定版本
+GMP_VERSION = head
+GMP_SOURCE = gmp-6.1.2.tar.xz
+GMP_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(GMP_SOURCE)
+GMP_SITE_METHOD = svn
+
+#GMP_VERSION = 6.1.2
+#GMP_SITE = $(BR2_GNU_MIRROR)/gmp
+#GMP_SOURCE = gmp-$(GMP_VERSION).tar.xz
 GMP_INSTALL_STAGING = YES
 GMP_LICENSE = LGPL-3.0+ or GPL-2.0+
 GMP_LICENSE_FILES = COPYING.LESSERv3 COPYINGv2

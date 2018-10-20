@@ -8,24 +8,37 @@
 # Version, site and source
 #
 
-GCC_VERSION = $(call qstrip,$(BR2_GCC_VERSION))
+#自定义从svn下载 可选择版本
+GCC_VERSION = head
+GCC_SRV_VER = $(call qstrip,$(BR2_GCC_VERSION))
+GCC_SOURCE = gcc-$(GCC_SRV_VER).tar.xz
+GCC_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(GCC_SOURCE)
+GCC_SITE_METHOD = svn
 
-ifeq ($(BR2_GCC_VERSION_ARC),y)
-GCC_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,gcc,$(GCC_VERSION))
-GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
-else ifeq ($(BR2_or1k),y)
-GCC_SITE = $(call github,openrisc,or1k-gcc,$(GCC_VERSION))
-GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
-else
-GCC_SITE = $(BR2_GNU_MIRROR:/=)/gcc/gcc-$(GCC_VERSION)
-# From version 5.5.0, 6.4.0 and 7.2.0 a bz2 release tarball is not
-# provided anymore. Use the xz tarball instead.
-ifeq ($(BR2_GCC_VERSION_5_X)$(BR2_GCC_VERSION_6_X)$(BR2_GCC_VERSION_7_X),y)
-GCC_SOURCE = gcc-$(GCC_VERSION).tar.xz
-else
-GCC_SOURCE = gcc-$(GCC_VERSION).tar.bz2
-endif # BR2_GCC_VERSION_6_X
-endif
+#自定义从svn下载 固定版本
+#GCC_VERSION = head
+#GCC_SOURCE = gcc-6.4.0.tar.xz
+#GCC_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(GCC_SOURCE)
+#GCC_SITE_METHOD = svn
+
+#GCC_VERSION = $(call qstrip,$(BR2_GCC_VERSION))
+#
+#ifeq ($(BR2_GCC_VERSION_ARC),y)
+#GCC_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,gcc,$(GCC_VERSION))
+#GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
+#else ifeq ($(BR2_or1k),y)
+#GCC_SITE = $(call github,openrisc,or1k-gcc,$(GCC_VERSION))
+#GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
+#else
+#GCC_SITE = $(BR2_GNU_MIRROR:/=)/gcc/gcc-$(GCC_VERSION)
+## From version 5.5.0, 6.4.0 and 7.2.0 a bz2 release tarball is not
+## provided anymore. Use the xz tarball instead.
+#ifeq ($(BR2_GCC_VERSION_5_X)$(BR2_GCC_VERSION_6_X)$(BR2_GCC_VERSION_7_X),y)
+#GCC_SOURCE = gcc-$(GCC_VERSION).tar.xz
+#else
+#GCC_SOURCE = gcc-$(GCC_VERSION).tar.bz2
+#endif # BR2_GCC_VERSION_6_X
+#endif
 
 #
 # Xtensa special hook

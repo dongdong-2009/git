@@ -4,9 +4,15 @@
 #
 ################################################################################
 
-ATTR_VERSION = 2.4.47
-ATTR_SOURCE = attr-$(ATTR_VERSION).src.tar.gz
-ATTR_SITE = http://download.savannah.gnu.org/releases/attr
+#自定义从svn下载
+ATTR_VERSION = head
+ATTR_SOURCE = attr-2.4.47.src.tar.gz
+ATTR_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(ATTR_SOURCE)
+ATTR_SITE_METHOD = svn
+
+#ATTR_VERSION = 2.4.47
+#ATTR_SOURCE = attr-$(ATTR_VERSION).src.tar.gz
+#ATTR_SITE = http://download.savannah.gnu.org/releases/attr
 ATTR_INSTALL_STAGING = YES
 ATTR_CONF_OPTS = --enable-gettext=no
 HOST_ATTR_CONF_OPTS = --enable-gettext=no

@@ -4,9 +4,15 @@
 #
 ################################################################################
 
-LIBZLIB_VERSION = 1.2.11
-LIBZLIB_SOURCE = zlib-$(LIBZLIB_VERSION).tar.xz
-LIBZLIB_SITE = http://www.zlib.net
+#自定义从svn下载
+LIBZLIB_VERSION = head
+LIBZLIB_SOURCE = zlib-1.2.11.tar.xz
+LIBZLIB_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(LIBZLIB_SOURCE)
+LIBZLIB_SITE_METHOD = svn
+
+#LIBZLIB_VERSION = 1.2.11
+#LIBZLIB_SOURCE = zlib-$(LIBZLIB_VERSION).tar.xz
+#LIBZLIB_SITE = http://www.zlib.net
 LIBZLIB_LICENSE = Zlib
 LIBZLIB_LICENSE_FILES = README
 LIBZLIB_INSTALL_STAGING = YES

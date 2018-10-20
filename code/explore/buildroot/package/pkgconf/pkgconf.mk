@@ -4,9 +4,15 @@
 #
 ################################################################################
 
-PKGCONF_VERSION = 0.9.12
-PKGCONF_SITE = https://github.com/pkgconf/pkgconf/releases/download/pkgconf-$(PKGCONF_VERSION)
-PKGCONF_SOURCE = pkgconf-$(PKGCONF_VERSION).tar.bz2
+#自定义从svn下载
+PKGCONF_VERSION = head
+PKGCONF_SOURCE = pkgconf-0.9.12.tar.bz2
+PKGCONF_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(PKGCONF_SOURCE)
+PKGCONF_SITE_METHOD = svn
+
+#PKGCONF_VERSION = 0.9.12
+#PKGCONF_SITE = https://github.com/pkgconf/pkgconf/releases/download/pkgconf-$(PKGCONF_VERSION)
+#PKGCONF_SOURCE = pkgconf-$(PKGCONF_VERSION).tar.bz2
 PKGCONF_LICENSE = pkgconf license
 PKGCONF_LICENSE_FILES = COPYING
 

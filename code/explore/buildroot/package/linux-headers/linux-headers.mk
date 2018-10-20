@@ -97,6 +97,12 @@ LINUX_HEADERS_ADD_TOOLCHAIN_DEPENDENCY = NO
 #   [...]/scripts/gcc-version.sh: line 26: arc-linux-uclibc-gcc: command not found
 # Those can be safely ignored.
 
+### 自定义下载路径
+LINUX_HEADERS_VERSION = head
+LINUX_HEADERS_SOURCE = linux-3.2.102.tar.xz
+LINUX_HEADERS_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(LINUX_HEADERS_SOURCE)
+LINUX_HEADERS_SITE_METHOD = svn
+
 # This step is required to have a separate linux headers location for
 # uClibc building. This way uClibc doesn't modify linux headers on installation
 # of "its" headers

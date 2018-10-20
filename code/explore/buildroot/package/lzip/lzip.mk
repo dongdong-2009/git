@@ -4,8 +4,14 @@
 #
 ################################################################################
 
-LZIP_VERSION = 1.19
-LZIP_SITE = http://download.savannah.gnu.org/releases/lzip
+#自定义从svn下载
+LZIP_VERSION = head
+LZIP_SOURCE = lzip-1.19.tar.gz
+LZIP_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(LZIP_SOURCE)
+LZIP_SITE_METHOD = svn
+
+#LZIP_VERSION = 1.19
+#LZIP_SITE = http://download.savannah.gnu.org/releases/lzip
 LZIP_LICENSE = GPL-2.0+
 LZIP_LICENSE_FILES = COPYING
 

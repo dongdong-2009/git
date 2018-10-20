@@ -4,9 +4,15 @@
 #
 ################################################################################
 
-ACL_VERSION = 2.2.52
-ACL_SOURCE = acl-$(ACL_VERSION).src.tar.gz
-ACL_SITE = http://download.savannah.gnu.org/releases/acl
+#自定义从svn下载
+ACL_VERSION = head
+ACL_SOURCE = acl-2.2.52.src.tar.gz
+ACL_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(ACL_SOURCE)
+ACL_SITE_METHOD = svn
+
+#ACL_VERSION = 2.2.52
+#ACL_SOURCE = acl-$(ACL_VERSION).src.tar.gz
+#ACL_SITE = http://download.savannah.gnu.org/releases/acl
 ACL_INSTALL_STAGING = YES
 ACL_DEPENDENCIES = attr
 ACL_CONF_OPTS = --enable-gettext=no

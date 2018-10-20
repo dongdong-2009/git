@@ -4,9 +4,15 @@
 #
 ################################################################################
 
-UCLIBC_VERSION = 1.0.28
-UCLIBC_SOURCE = uClibc-ng-$(UCLIBC_VERSION).tar.xz
-UCLIBC_SITE = http://downloads.uclibc-ng.org/releases/$(UCLIBC_VERSION)
+#自定义从svn下载
+UCLIBC_VERSION = head
+UCLIBC_SOURCE = uClibc-ng-1.0.28.tar.xz
+UCLIBC_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(UCLIBC_SOURCE)
+UCLIBC_SITE_METHOD = svn
+
+#UCLIBC_VERSION = 1.0.28
+#UCLIBC_SOURCE = uClibc-ng-$(UCLIBC_VERSION).tar.xz
+#UCLIBC_SITE = http://downloads.uclibc-ng.org/releases/$(UCLIBC_VERSION)
 UCLIBC_LICENSE = LGPL-2.1+
 UCLIBC_LICENSE_FILES = COPYING.LIB
 UCLIBC_INSTALL_STAGING = YES

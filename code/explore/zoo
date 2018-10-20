@@ -5,13 +5,13 @@ TOPDIR=`pwd`
 #KERN_VER=3.10.104		#选择要实验的内核版本
 ARCH=arm
 CROSS=arm-linux-gnueabi-
+#CROSS=arm-linux-
 DEST_PATH=$TOPDIR/zoos
 #export KERN_VER
 export TOPDIR
 export ARCH
 export CROSS
 export DEST_PATH
-
 
 #基础函数，大小写转换
 str_to_upper(){
@@ -52,7 +52,7 @@ parse_param(){
 		OBJECT=$str
 	elif [ "$str" == "clean" ] ; then
 		OBJECT=$str
-		BUILD=Clean
+		BUILD=Cleaning
 	else
 		usage
 		exit 1
@@ -84,8 +84,7 @@ fi
 
 
 #编译uboot
-#SUBDIRS="uboot kernel buildroot"
-SUBDIRS="uboot kernel"
+SUBDIRS="uboot kernel buildroot"
 
 if [ $# -gt 0 ]; then						#只有在向脚本传递的参数的个数大于0的时候，才进行下面的解析
 	for item in $SUBDIRS ; do
@@ -124,11 +123,11 @@ for item in $SUBDIRS; do														#实现了如果不接参数就编译全�
 	fi
 done
 
-#删除zoos文件夹
-if [ $# -eq 1 ] && [ "$OBJECT" == "clean" ]; then
+#当文件夹为空时删除zoos文件夹
+if [ "`ls -A $DEST_PATH`" = "" ] && [ "$OBJECT" == "clean" ]; then
 	rm -rf $DEST_PATH
 fi
-	
+
 exit 0
 
 

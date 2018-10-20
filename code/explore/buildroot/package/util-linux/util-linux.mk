@@ -4,11 +4,17 @@
 #
 ################################################################################
 
-UTIL_LINUX_VERSION_MAJOR = 2.31
-UTIL_LINUX_VERSION_MINOR = 1
-UTIL_LINUX_VERSION = $(UTIL_LINUX_VERSION_MAJOR).$(UTIL_LINUX_VERSION_MINOR)
-UTIL_LINUX_SOURCE = util-linux-$(UTIL_LINUX_VERSION).tar.xz
-UTIL_LINUX_SITE = $(BR2_KERNEL_MIRROR)/linux/utils/util-linux/v$(UTIL_LINUX_VERSION_MAJOR)
+#自定义从svn下载
+UTIL_LINUX_VERSION = head
+UTIL_LINUX_SOURCE = util-linux-2.31.1.tar.xz
+UTIL_LINUX_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(UTIL_LINUX_SOURCE)
+UTIL_LINUX_SITE_METHOD = svn
+
+#UTIL_LINUX_VERSION_MAJOR = 2.31
+#UTIL_LINUX_VERSION_MINOR = 1
+#UTIL_LINUX_VERSION = $(UTIL_LINUX_VERSION_MAJOR).$(UTIL_LINUX_VERSION_MINOR)
+#UTIL_LINUX_SOURCE = util-linux-$(UTIL_LINUX_VERSION).tar.xz
+#UTIL_LINUX_SITE = $(BR2_KERNEL_MIRROR)/linux/utils/util-linux/v$(UTIL_LINUX_VERSION_MAJOR)
 
 # README.licensing claims that some files are GPL-2.0 only, but this is not true.
 # Some files are GPL-3.0+ but only in tests. rfkill uses an ISC-style license.

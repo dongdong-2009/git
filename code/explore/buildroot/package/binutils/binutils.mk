@@ -4,24 +4,30 @@
 #
 ################################################################################
 
+#自定义从svn下载
+BINUTILS_VERSION = head
+BINUTILS_SOURCE = binutils-2.29.1.tar.xz
+BINUTILS_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(BINUTILS_SOURCE)
+BINUTILS_SITE_METHOD = svn
+
 # Version is set when using buildroot toolchain.
 # If not, we do like other packages
-BINUTILS_VERSION = $(call qstrip,$(BR2_BINUTILS_VERSION))
-ifeq ($(BINUTILS_VERSION),)
-ifeq ($(BR2_arc),y)
-BINUTILS_VERSION = arc-2017.09-release
-else
-BINUTILS_VERSION = 2.29.1
-endif
-endif # BINUTILS_VERSION
-
-ifeq ($(BINUTILS_VERSION),arc-2017.09-release)
-BINUTILS_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,binutils-gdb,$(BINUTILS_VERSION))
-BINUTILS_SOURCE = binutils-$(BINUTILS_VERSION).tar.gz
-BINUTILS_FROM_GIT = y
-endif
-BINUTILS_SITE ?= $(BR2_GNU_MIRROR)/binutils
-BINUTILS_SOURCE ?= binutils-$(BINUTILS_VERSION).tar.xz
+#BINUTILS_VERSION = $(call qstrip,$(BR2_BINUTILS_VERSION))
+#ifeq ($(BINUTILS_VERSION),)
+#ifeq ($(BR2_arc),y)
+#BINUTILS_VERSION = arc-2017.09-release
+#else
+#BINUTILS_VERSION = 2.29.1
+#endif
+#endif # BINUTILS_VERSION
+#
+#ifeq ($(BINUTILS_VERSION),arc-2017.09-release)
+#BINUTILS_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,binutils-gdb,$(BINUTILS_VERSION))
+#BINUTILS_SOURCE = binutils-$(BINUTILS_VERSION).tar.gz
+#BINUTILS_FROM_GIT = y
+#endif
+#BINUTILS_SITE ?= $(BR2_GNU_MIRROR)/binutils
+#BINUTILS_SOURCE ?= binutils-$(BINUTILS_VERSION).tar.xz
 BINUTILS_EXTRA_CONFIG_OPTIONS = $(call qstrip,$(BR2_BINUTILS_EXTRA_CONFIG_OPTIONS))
 BINUTILS_INSTALL_STAGING = YES
 BINUTILS_DEPENDENCIES = $(TARGET_NLS_DEPENDENCIES)
