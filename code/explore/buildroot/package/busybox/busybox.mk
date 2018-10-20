@@ -5,16 +5,16 @@
 ################################################################################
 
 #使用本地的文件，直接cp到buildroot里面来
-#BUSYBOX_VERSION = head
+BUSYBOX_VERSION = head
 #BUSYBOX_SOURCE = busybox-1.26.2.tar.bz2
-#BUSYBOX_SITE = $(TOPDIR)/../busybox
-#BUSYBOX_SITE_METHOD = local
+BUSYBOX_SITE = $(TOPDIR)/../busybox
+BUSYBOX_SITE_METHOD = local
 
 #自定义从svn下载
-BUSYBOX_VERSION = head
-BUSYBOX_SOURCE = busybox-1.27.2.tar.bz2
-BUSYBOX_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(BUSYBOX_SOURCE)
-BUSYBOX_SITE_METHOD = svn
+#BUSYBOX_VERSION = head
+#BUSYBOX_SOURCE = busybox-1.27.2.tar.bz2
+#BUSYBOX_SITE = http://192.168.154.15/svn/tools/third_party_repository/$(BUSYBOX_SOURCE)
+#BUSYBOX_SITE_METHOD = svn
 
 #BUSYBOX_VERSION = 1.27.2
 #BUSYBOX_SITE = http://www.busybox.net/downloads
