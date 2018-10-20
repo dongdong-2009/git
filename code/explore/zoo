@@ -4,8 +4,8 @@
 TOPDIR=`pwd`
 #KERN_VER=3.10.104		#选择要实验的内核版本
 ARCH=arm
-CROSS=arm-linux-gnueabi-
-#CROSS=arm-linux-
+#CROSS=arm-linux-gnueabi-
+CROSS=arm-linux-
 DEST_PATH=$TOPDIR/zoos
 #export KERN_VER
 export TOPDIR
