@@ -195,7 +195,7 @@
 /*注意：这里加载的时uImage文件，0x60004000~0x60008000之间的内存会被替换，原因有待研究
  *内核在编译的时候指定加载的地址位0x60008000，加载地址和运行地址相同，因此这里应该down到除此之外的地址处
  *在bootm的时候会拷贝到起始地址处的，这里执行down到0x60008100处*/
-#define CONFIG_BOOTCOMMAND "tftp 0x60008100 uImage; setenv bootargs 'root=/dev/mmcblk0 console=ttyAMA0'; bootm 0x60008100"
+#define CONFIG_BOOTCOMMAND "tftp 0x60008100 uImage; setenv bootargs 'root=/dev/mmcblk0 rw console=ttyAMA0'; bootm 0x60008100"
 #define CONFIG_IPADDR  192.168.154.211
 #define CONFIG_NETMASK 255.255.255.0
 #define CONFIG_GATEWAYIP 192.168.154.1
