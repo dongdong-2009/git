@@ -1,0 +1,28 @@
+一、功能：
+完成如下3个交叉编译工具链的制作
+	名称								版本				支持最低版本的Linux		gcc版本				库版本					gdb版本
+arm-explore-eabi				crosstool-NG-1.23.0			无						gcc-6.3.0			newlib-2.5.0.20170323	gdb-7.12.1
+arm-explore-linux-gnueabi		crosstool-NG-1.23.0			linux-3.2.87			gcc-6.3.0			glibc-2.25				gdb-7.12.1
+arm-tq2440-linux-gnueabi		crosstool-NG-1.19.0			linux-2.6.24			gcc-4.8.1			glibc-2.16				gdb-7.4.1
+
+
+二、安装
+2.1 crosstool-NG-1.19.0	
+第一步：mkdir workspace
+第二步：./configure --prefix=/home/hupu/data/work/git/cross/build/crosstool-NG-1.19.0/workspace --with-libtool=/lib
+第三步：修改kconfig/zconf.hash.c，将163行kconf_id_lookup中的size_t改为unsigned int，如下：
+		kconf_id_lookup (register const char *str, register unsigned int len)
+第四步：make
+第五步：make install
+
+2.2 crosstool-NG-1.23.0
+第一步：mkdir workspace
+第二步：./configure --prefix=/home/hupu/data/work/git/cross/build/crosstool-NG-1.23.0/workspace
+第三步：make
+第四步：make install
+
+
+三、注意
+配置文件不需要修改，如果编译过程中有报错，一般是因为你的编译服务器配置问题，网上搜一下解决方案，一般安装几个软件就能解决！enjoy it! :)
+
+
