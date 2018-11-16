@@ -24,3 +24,7 @@ config SOC_VEXPRESS_A9
     default y
 
 source "$BSP_DIR/drivers/Kconfig"
+
+config HAVE_SYS_SELECT_H
+    bool
+    default y
