@@ -3,7 +3,7 @@
 	名称								版本				支持最低版本的Linux		gcc版本				库版本					gdb版本
 arm-explore-eabi				crosstool-NG-1.23.0			无						gcc-6.3.0			newlib-2.5.0.20170323	gdb-7.12.1
 arm-explore-linux-gnueabi		crosstool-NG-1.23.0			linux-3.2.87			gcc-6.3.0			glibc-2.25				gdb-7.12.1
-arm-tq2440-linux-gnueabi		crosstool-NG-1.19.0			linux-2.6.24			gcc-4.8.1			glibc-2.16				gdb-7.4.1
+arm-tq2440-linux-gnueabi		crosstool-NG-1.19.0			linux-2.6.30			gcc-4.8.1			glibc-2.16				gdb-7.4.1
 
 
 二、安装

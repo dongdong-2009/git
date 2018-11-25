@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # crosstool-NG 1.19.0 Configuration
-# Wed Nov  7 18:07:06 2018
+# Sat Nov 24 19:58:21 2018
 #
 CT_CONFIGURE_has_xz=y
 CT_CONFIGURE_has_svn=y
@@ -117,8 +117,8 @@ CT_ARCH_FPU=""
 CT_ARCH_LE=y
 CT_ARCH_32=y
 CT_ARCH_BITNESS=32
-CT_ARCH_FLOAT_HW=y
-# CT_ARCH_FLOAT_SW is not set
+# CT_ARCH_FLOAT_HW is not set
+CT_ARCH_FLOAT_SW=y
 CT_TARGET_CFLAGS=""
 CT_TARGET_LDFLAGS=""
 CT_ARCH_arm=y
@@ -158,7 +158,7 @@ CT_ARCH_ENDIAN="little"
 # Target optimisations
 #
 # CT_ARCH_FLOAT_SOFTFP is not set
-CT_ARCH_FLOAT="hard"
+CT_ARCH_FLOAT="soft"
 
 #
 # arm other options
@@ -169,7 +169,6 @@ CT_ARCH_ARM_MODE_ARM=y
 # CT_ARCH_ARM_INTERWORKING is not set
 CT_ARCH_ARM_EABI_FORCE=y
 CT_ARCH_ARM_EABI=y
-# CT_ARCH_ARM_TUPLE_USE_EABIHF is not set
 
 #
 # Toolchain options
@@ -246,7 +245,7 @@ CT_KERNEL_linux_AVAILABLE=y
 # CT_KERNEL_V_2_6_31 is not set
 # CT_KERNEL_V_2_6_27 is not set
 CT_KERNEL_LINUX_CUSTOM=y
-CT_KERNEL_LINUX_CUSTOM_LOCATION="${CT_TOP_DIR}/src/linux-2.6.24.tar.bz2"
+CT_KERNEL_LINUX_CUSTOM_LOCATION="${CT_TOP_DIR}/src/linux-2.6.30.tar.xz"
 
 #
 # Common kernel options
