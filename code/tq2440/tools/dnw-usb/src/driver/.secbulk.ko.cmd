@@ -1,0 +1,1 @@
+cmd_/home/hupu/data/work/tq2440/tools/dnw-usb/src/driver/secbulk.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/hupu/data/work/tq2440/tools/dnw-usb/src/driver/secbulk.ko /home/hupu/data/work/tq2440/tools/dnw-usb/src/driver/secbulk.o /home/hupu/data/work/tq2440/tools/dnw-usb/src/driver/secbulk.mod.o

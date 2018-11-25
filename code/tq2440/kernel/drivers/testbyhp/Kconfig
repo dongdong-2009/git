@@ -1,0 +1,6 @@
+menu "test1 driver here fuck menu1"
+config FUCK_TEST1 
+tristate "hupu test1 driver fuck menu2"
+help 
+This is test1
+endmenu

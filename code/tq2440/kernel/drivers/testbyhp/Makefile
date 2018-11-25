@@ -1,0 +1,1 @@
+obj-$(CONFIG_FUCK_TEST1) += mytest.o

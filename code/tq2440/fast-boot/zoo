@@ -1,0 +1,19 @@
+#! /bin/bash
+
+#做相应的清除工作
+if [ "$1" == "clean" ]; then
+	make distclean
+	rm -rf $DEST_PATH/fast-boot.bin
+	exit 0
+fi
+
+#配置
+make EmbedSky_config
+
+#编译，交叉编译工具链已经在Makefile中写死了
+make
+
+#拷贝
+cp $TOPDIR/fast-boot/u-boot.bin $DEST_PATH/fast-boot.bin
+	
+exit 0

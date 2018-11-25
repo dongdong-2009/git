@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# We want to catch any unexpected failure, and exit immediately
+set -e
+
+# Download helper for svn, to be called from the download wrapper script
+#
+# Call it as:
+#   .../svn [-q] OUT_FILE REPO_URL REV BASNAME
+#
+# Environment:
+#   SVN      : the svn command to call
+
+verbose=
+while getopts :q OPT; do
+    case "${OPT}" in
+    q)  verbose=-q;;
+    \?) printf "unknown option '%s'\n" "${OPTARG}" >&2; exit 1;;
+    esac
+done
+shift $((OPTIND-1))
+
+output="${1}"
+repo="${2}"
+rev="${3}"
+basename="${4}"
+
+shift 4 # Get rid of our options
+
+# Caller needs to single-quote its arguments to prevent them from
+# being expanded a second time (in case there are spaces in them)
+_svn() {
+    eval ${SVN} "${@}"
+}
+
+#从svn上直接通过export下载，用户名和密码直接使用保存在编译服务器上的就好了
+_svn export ${verbose} "${@}" "'${repo}@${rev}'" "'${basename}'"
+
+
+#tar czf "${output}" "${basename}"
+#因为现在从svn上下载下来的就是已经打包好的文件
+#不需要再次解压，直接拷贝过去就好了
+if [ -d ${basename} ]
+then
+	tar czf "${output}" "${basename}"
+else
+	mv ${basename} ${output}
+fi

@@ -1,0 +1,22 @@
+#! /bin/bash
+
+#编译之前先clean一下
+if [ "$1" == "clean" ]; then
+	make distclean ARCH=$ARCH	#这里也要加上ARCH=arm
+	rm -rf $DEST_PATH/Image
+	rm -rf $DEST_PATH/uImage
+	rm -rf $DEST_PATH/zImage
+	exit 0
+fi
+
+# 使用备份的配置文件
+cp $TOPDIR/configs/kernel_config .config 	#注意这里要使用双引号
+
+#编译内核 生成uImage的时候，一定要加上LOADADDR，否则会出错
+#tq2440的LOADADDR在make menuconfig中通过CONFIG_ZBOOT_ROM_TEXT写死
+make -j4 ARCH=$ARCH CROSS_COMPILE=$CROSS uImage
+
+#拷贝镜像文件
+cp arch/arm/boot/Image $DEST_PATH
+cp arch/arm/boot/uImage $DEST_PATH
+cp arch/arm/boot/zImage $DEST_PATH
