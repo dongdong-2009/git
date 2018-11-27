@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # crosstool-NG 1.19.0 Configuration
-# Sat Nov 24 19:58:21 2018
+# Tue Nov 27 17:47:42 2018
 #
 CT_CONFIGURE_has_xz=y
 CT_CONFIGURE_has_svn=y
@@ -109,9 +109,9 @@ CT_ARCH_SUPPORTS_SOFTFP=y
 CT_ARCH_DEFAULT_HAS_MMU=y
 CT_ARCH_DEFAULT_LE=y
 CT_ARCH_DEFAULT_32=y
-CT_ARCH_ARCH=""
-CT_ARCH_CPU=""
-CT_ARCH_TUNE=""
+CT_ARCH_ARCH="armv4t"
+CT_ARCH_CPU="arm920t"
+CT_ARCH_TUNE="arm920t"
 CT_ARCH_FPU=""
 # CT_ARCH_BE is not set
 CT_ARCH_LE=y
