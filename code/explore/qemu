@@ -25,20 +25,23 @@ if [ "$1" == "uboot" ]; then
 	if [ ! -e "$DEST_PATH/u-boot" ]; then
 		echo "ERROR: please run \"./zoo uboot\" first"
 	else
-		#dd if=/dev/zero of=$DEST_PATH/flash0.img bs=1M count=64
-		#dd if=$DEST_PATH/u-boot.bin of=$DEST_PATH/flash0.img bs=256k conv=notrunc
-		#dd if=/dev/zero of=$DEST_PATH/flash1.img bs=1M count=64	
-		#qemu-system-arm -M vexpress-a9 -m 256M -nographic -kernel $DEST_PATH/u-boot -net nic,vlan=0 -net tap,vlan=0,ifname=tap0
-		#qemu-system-arm -M vexpress-a9 -m 256M -nographic -kernel $DEST_PATH/u-boot -net nic,vlan=0 -net tap,vlan=0,ifname=tap0 -sd $DEST_PATH/rootfs.ext4
+		if [ ! -e "$DEST_PATH/flash0.img" ] || [ ! -e "$DEST_PATH/flash1.img" ] ; then
+			if [ ! -e "$PWD/configs/qemu/img/flash0.img" ] || [ ! -e "$PWD/configs/qemu/img/flash1.img" ] ; then
+				dd if=/dev/zero of=$DEST_PATH/flash0.img bs=1M count=64
+				dd if=$DEST_PATH/u-boot.bin of=$DEST_PATH/flash0.img bs=256k conv=notrunc
+				dd if=/dev/zero of=$DEST_PATH/flash1.img bs=1M count=64
+			else
+				cp $PWD/configs/qemu/img/flash0.img $DEST_PATH/
+				cp $PWD/configs/qemu/img/flash1.img $DEST_PATH/
+			fi
+		fi
 		qemu-system-arm -M vexpress-a9 -m 256M -nographic -kernel $DEST_PATH/u-boot -pflash $DEST_PATH/flash0.img -pflash $DEST_PATH/flash1.img -net nic,vlan=0 -net tap,vlan=0,ifname=tap0 -sd $DEST_PATH/rootfs.ext4
 	fi
 elif [ "$1" == "kernel" ]; then
-	if [ ! -e "$DEST_PATH/zImage" ]; then
+	if [ ! -e "$DEST_PATH/zImage" ] || [ ! -e "$DEST_PATH/vexpress-v2p-ca9.dtb" ]; then
 		echo "ERROR: please run \"./zoo kernel\" first"
 	else	#单独验证内核通过-append传递参数，uboot中通过bootargs传递参数
-		#qemu-system-arm -M vexpress-a9 -m 512M -kernel $DEST_PATH/zImage -nographic -append "root=/dev/mmcblk0 console=ttyAMA0" -sd $DEST_PATH/rootfs.ext2
-		#qemu-system-arm -M vexpress-a9 -m 512M -kernel $DEST_PATH/zImage -nographic -append "root=/dev/mmcblk0 console=ttyAMA0"
-		qemu-system-arm -M vexpress-a9 -m 512M -kernel $DEST_PATH/zImage -dtb $DEST_PATH/vexpress-v2p-ca9.dtb -nographic -append "root=/dev/mmcblk0 console=ttyAMA0 rw init=/linuxrc"
+		qemu-system-arm -M vexpress-a9 -m 512M -kernel $DEST_PATH/zImage -dtb $DEST_PATH/vexpress-v2p-ca9.dtb -nographic -append "root=/dev/mmcblk0 console=ttyAMA0 rw init=/linuxrc" -sd $DEST_PATH/rootfs.ext4 -smp 4
 	fi
 elif [ "$1" == "all" ]; then
 	if [ ! -e "$DEST_PATH/u-boot" ]; then

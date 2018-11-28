@@ -30,3 +30,4 @@ make -j4 ARCH=$ARCH CROSS_COMPILE=$CROSS uImage LOADADDR=0x60008000
 cp arch/arm/boot/Image $DEST_PATH
 cp arch/arm/boot/uImage $DEST_PATH
 cp arch/arm/boot/zImage $DEST_PATH
+cp arch/arm/boot/dts/vexpress-v2p-ca9.dtb $DEST_PATH
