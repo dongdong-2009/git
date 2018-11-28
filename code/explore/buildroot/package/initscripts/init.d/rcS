@@ -1,5 +1,8 @@
 #!/bin/sh
 
+mount -t sysfs sysfs /sys
+mount -t tmpfs tmpfs /tmp
+mount -t ramfs ramfs /home
 
 # Start all init scripts in /etc/init.d
 # executing them in numerical order.
